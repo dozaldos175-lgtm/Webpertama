@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FALZ — Red Edition</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        html{scroll-behavior:smooth}
+        body{background:#140608;color:#ffe8e8;overflow-x:hidden}
+
+        /* HEADER */
+        header{position:fixed;top:0;width:100%;z-index:100;background:rgba(20,6,8,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,59,59,0.15);padding:0 40px}
+        .nav{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+        .logo{font-size:20px;font-weight:800;background:linear-gradient(135deg,#ff3b3b,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-links{display:flex;gap:32px;list-style:none}
+        .nav-links a{color:#bb8899;text-decoration:none;font-size:14px;font-weight:500;transition:0.3s;position:relative}
+        .nav-links a:hover{color:#ff3b3b}
+        .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,#ff3b3b,#ff8c42);transition:0.3s}
+        .nav-links a:hover::after{width:100%}
+
+        /* HERO */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 20px 60px;position:relative}
+        .hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,59,59,0.18),transparent 70%);border-radius:50%;pointer-events:none;animation:pulse 4s ease-in-out infinite}
+        @keyframes pulse{0%,100%{transform:translateX(-50%) scale(1);opacity:0.5}50%{transform:translateX(-50%) scale(1.1);opacity:0.8}}
+        .hero-content{position:relative;z-index:1;max-width:800px}
+        .hero-avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#ff3b3b,#ff8c42);display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:800;margin:0 auto 32px;box-shadow:0 0 80px rgba(255,59,59,0.5);animation:float 4s ease-in-out infinite}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+        .hero h1{font-size:56px;font-weight:800;margin-bottom:16px;line-height:1.1}
+        .hero h1 span{background:linear-gradient(135deg,#ff3b3b,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{font-size:18px;color:#bb8899;margin-bottom:40px;line-height:1.7}
+        .btn{display:inline-block;padding:16px 40px;border-radius:50px;font-size:15px;font-weight:600;text-decoration:none;transition:0.3s;cursor:pointer;border:none;margin:8px}
+        .btn-primary{background:linear-gradient(135deg,#ff3b3b,#ff8c42);color:#fff;box-shadow:0 8px 30px rgba(255,59,59,0.35)}
+        .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 50px rgba(255,59,59,0.55)}
+        .btn-outline{background:transparent;color:#ff3b3b;border:2px solid rgba(255,59,59,0.35)}
+        .btn-outline:hover{background:rgba(255,59,59,0.1);border-color:#ff3b3b}
+        .scroll-down{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:#bb8899;font-size:24px;animation:bounce 2s infinite}
+        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+        /* SECTIONS */
+        section{padding:100px 40px}
+        .container{max-width:1100px;margin:0 auto}
+        .section-title{text-align:center;margin-bottom:60px}
+        .section-title h2{font-size:42px;font-weight:800;margin-bottom:12px}
+        .section-title h2 span{background:linear-gradient(135deg,#ff3b3b,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .section-title p{color:#bb8899;font-size:16px}
+
+        /* ABOUT */
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+        .about-text p{color:#bb8899;font-size:16px;line-height:1.9;margin-bottom:20px}
+        .about-text strong{color:#ff3b3b}
+        .stats{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+        .stat-card{background:linear-gradient(135deg,rgba(255,59,59,0.05),rgba(255,140,66,0.05));border:1px solid rgba(255,59,59,0.2);border-radius:16px;padding:32px;text-align:center;transition:0.3s}
+        .stat-card:hover{transform:translateY(-5px);border-color:#ff3b3b}
+        .stat-card .num{font-size:36px;font-weight:800;background:linear-gradient(135deg,#ff3b3b,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .stat-card .label{font-size:13px;color:#bb8899;margin-top:8px}
+
+        /* SKILLS */
+        .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+        .skill-card{background:linear-gradient(135deg,rgba(255,59,59,0.03),rgba(255,140,66,0.03));border:1px solid rgba(255,59,59,0.2);border-radius:20px;padding:32px;transition:0.3s}
+        .skill-card:hover{transform:translateY(-8px);border-color:#ff3b3b;box-shadow:0 20px 50px rgba(255,59,59,0.15)}
+        .skill-icon{font-size:44px;margin-bottom:20px}
+        .skill-card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+        .skill-card p{color:#bb8899;font-size:14px;line-height:1.7;margin-bottom:20px}
+        .skill-bar{height:6px;background:rgba(255,59,59,0.1);border-radius:10px;overflow:hidden}
+        .skill-bar div{height:100%;background:linear-gradient(90deg,#ff3b3b,#ff8c42);border-radius:10px;transition:width 1s ease}
+
+        /* CONTACT */
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+        .contact-info p{color:#bb8899;font-size:16px;line-height:1.9;margin-bottom:30px}
+        .contact-item{display:flex;align-items:center;gap:16px;padding:20px;background:rgba(255,59,59,0.03);border:1px solid rgba(255,59,59,0.2);border-radius:12px;margin-bottom:12px;transition:0.3s}
+        .contact-item:hover{border-color:#ff3b3b;transform:translateX(5px)}
+        .contact-item .icon{font-size:24px}
+        .contact-item h4{font-size:14px;font-weight:600;margin-bottom:3px}
+        .contact-item p{color:#bb8899;font-size:13px;margin:0}
+        .contact-form{background:rgba(255,59,59,0.03);border:1px solid rgba(255,59,59,0.2);border-radius:20px;padding:36px}
+        .contact-form input,.contact-form textarea{width:100%;padding:14px 18px;background:rgba(20,6,8,0.5);border:1px solid rgba(255,59,59,0.2);border-radius:12px;color:#ffe8e8;font-size:14px;font-family:inherit;outline:none;margin-bottom:16px;transition:0.3s}
+        .contact-form input:focus,.contact-form textarea:focus{border-color:#ff3b3b}
+        .contact-form textarea{resize:vertical;min-height:120px}
+        .contact-form button{width:100%;padding:16px;background:linear-gradient(135deg,#ff3b3b,#ff8c42);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:0.3s}
+        .contact-form button:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,59,59,0.35)}
+
+        /* FOOTER */
+        footer{background:#0d0405;border-top:1px solid rgba(255,59,59,0.15);padding:40px 20px;text-align:center}
+        footer p{color:#bb8899;font-size:14px}
+        footer span{background:linear-gradient(135deg,#ff3b3b,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:600}
+
+        /* RESPONSIVE */
+        @media(max-width:850px){
+            header{padding:0 20px}
+            .nav-links{display:none}
+            .hero h1{font-size:36px}
+            .hero p{font-size:15px}
+            .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+            section{padding:70px 20px}
+            .section-title h2{font-size:30px}
+        }
+        @media(max-width:500px){
+            .hero h1{font-size:28px}
+            .hero-avatar{width:100px;height:100px;font-size:44px}
+            .btn{padding:14px 28px;font-size:14px}
+            .stat-card .num{font-size:28px}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">FALZ</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="hero" id="home">
+    <div class="hero-content">
+        <div class="hero-avatar">F</div>
+        <h1>Halo, gw <span>FALZ</span></h1>
+        <p>Pelajar, kreator, dan calon programmer. Gw suka ngulik teknologi, bikin project, dan belajar hal baru setiap hari.</p>
+        <a href="#contact" class="btn btn-primary">Hubungi Gw</a>
+        <a href="#about" class="btn btn-outline">Kenal Lebih Dekat</a>
+    </div>
+    <div class="scroll-down">↓</div>
+</div>
+
+<section id="about">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tentang <span>Gw</span></h2>
+            <p>Siapa sih FALZ itu?</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Gw <strong>FALZ</strong>, seorang pelajar yang lagi belajar coding dan teknologi. Gw mulai dari nol, belajar Termux, HTML, CSS, JavaScript, dan Python.</p>
+                <p>Gw percaya bahwa <strong>konsistensi</strong> lebih penting dari bakat. Setiap hari gw belajar hal baru, walaupun cuma sedikit.</p>
+                <p>Website ini adalah salah satu project pertama gw. Masih banyak yang harus dipelajari, tapi gw gak akan berhenti.</p>
+            </div>
+            <div class="stats">
+                <div class="stat-card"><div class="num">6+</div><div class="label">Bulan Belajar</div></div>
+                <div class="stat-card"><div class="num">10+</div><div class="label">Project</div></div>
+                <div class="stat-card"><div class="num">100%</div><div class="label">Semangat</div></div>
+                <div class="stat-card"><div class="num">24/7</div><div class="label">Belajar</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" style="background:#12080a">
+    <div class="container">
+        <div class="section-title">
+            <h2>Skill <span>Gw</span></h2>
+            <p>Yang lagi gw pelajari</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h3>Web Development</h3>
+                <p>HTML, CSS, JavaScript — bikin website dari nol.</p>
+                <div class="skill-bar"><div style="width:70%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🐍</div>
+                <h3>Python</h3>
+                <p>Bot Telegram, automation, dan script.</p>
+                <div class="skill-bar"><div style="width:60%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔧</div>
+                <h3>Termux</h3>
+                <p>Linux di HP, jalanin script, dan tools.</p>
+                <div class="skill-bar"><div style="width:75%"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🎨</div>
+                <h3>Design</h3>
+                <p>UI/UX sederhana, layout, dan warna.</p>
+                <div class="skill-bar"><div style="width:50%"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="section-title">
+            <h2>Kontak <span>Gw</span></h2>
+            <p>Mau ngobrol atau kerjasama?</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <p>Gw selalu terbuka buat ngobrol, diskusi, atau kerjasama project. Jangan ragu buat hubungi gw.</p>
+                <div class="contact-item">
+                    <div class="icon">📧</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>falz@example.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📍</div>
+                    <div>
+                        <h4>Lokasi</h4>
+                        <p>Indonesia</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">💼</div>
+                    <div>
+                        <h4>Status</h4>
+                        <p>Terbuka untuk kolaborasi</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="kirim(event)">
+                <input type="text" placeholder="Nama lo" required>
+                <input type="email" placeholder="Email lo" required>
+                <textarea placeholder="Pesan lo..." required></textarea>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 <span>FALZ</span> — Made with ❤️</p>
+</footer>
+
+<script>
+    function kirim(e) {
+        e.preventDefault();
+        alert('Pesan terkirim! (simulasi)');
+        e.target.reset();
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target.querySelector('.skill-bar div');
+                if (bar) {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => { bar.style.width = width; }, 100);
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+</script>
+</body>
+</html>
